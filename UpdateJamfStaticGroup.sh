@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Script to update (add/remove) the existing Computer Static Group from the list of serial numbers.
+# ADD will append the existing static group
 # Karthikeyan Marappan
 # API Role Privileges: Update Static Computer Groups
 
@@ -111,6 +112,8 @@ changeStaticComputerGroup() {
         log "Unauthorized to Update Static Group. Please check API Role permissions"
         exit 1
     else
+        ((countFailure++))
+        failureSerial+=("$serialNumber")
         log "Error: API request failed with HTTP code $http_code for serial: $serialNumber. Please check the URL and Static Group ID"
     fi
 }
